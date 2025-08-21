@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOW Generator - QPMC</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="demo-notice">
+            🚀 SOW Generator - Live Demo Interface
+            <br><small>Backend API: <span id="apiStatus">Connecting...</span></small>
+        </div>
+
+        <div class="header">
+            <h1>AI Scope of Work Generator for QPMC</h1>
+            <div class="progress-actions">
+                <button class="btn" onclick="saveProgress()">Save Progress</button>
+                <button class="btn" onclick="loadProgress()">Load Progress</button>
+                <button class="btn" onclick="clearSession()">Clear All</button>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-button active" onclick="showTab(0)">Part A</button>
+            <button class="tab-button" onclick="showTab(1)">Part B</button>
+            <button class="tab-button" onclick="showTab(2)">Part C</button>
+            <button class="tab-button" onclick="showTab(3)">Generate</button>
+        </div>
+
+        <!-- Part A: Basic Information -->
+        <div class="tab-content active" id="tab-0">
+            <div class="form-section">
+                <h2>Part A - Basic Information</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sowType">Work Type *</label>
+                        <select id="sowType" class="form-control" onchange="updateSubCategory()">
+                            <option value="">Select Work Type</option>
+                            <option value="Supply">Supply</option>
+                            <option value="Services">Services</option>
+                            <option value="Works">Works</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sowSubCategory">Sub-category *</label>
+                        <select id="sowSubCategory" class="form-control">
+                            <option value="">Select Sub-category</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="requestorName">Requestor Name *</label>
+                        <select id="requestorName" class="form-control">
+                            <option value="">Select Requestor</option>
+                            <option value="Abdulla Elkawakjy">Abdulla Elkawakjy</option>
+                            <option value="Srinivas Ravikumar">Srinivas Ravikumar</option>
+                            <option value="Moorthy">Moorthy</option>
+                            <option value="Abdulaziz Al-Mohsin">Abdulaziz Al-Mohsin</option>
+                            <option value="Other Employee">Other Employee (Specify)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="requestingDept">Requesting Department *</label>
+                        <select id="requestingDept" class="form-control">
+                            <option value="">Select Department</option>
+                            <option value="Operations">Operations</option>
+                            <option value="IT">IT</option>
+                            <option value="General Services">General Services</option>
+                            <option value="Commercial">Commercial</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="demandCode">Demand Planning Code Ref. No</label>
+                        <input type="text" id="demandCode" class="form-control" placeholder="Enter reference number">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cost">Booked Amount/Cost Estimates</label>
+                        <input type="text" id="cost" class="form-control" placeholder="Enter cost estimate">
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Total Contract Value *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="contractValue" value="Below QR200,000">
+                                Below QR200,000
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="contractValue" value="Equivalent to or Above QR200,000">
+                                Equivalent to or Above QR200,000
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Document Type *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="docType" value="Quotation Document">
+                                Quotation Document
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="docType" value="Tender Document">
+                                Tender Document
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Type of Contract *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="contractType" value="One-Off">
+                                One-Off
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="contractType" value="Call-Off">
+                                Call-Off
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Type of Award *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="awardType" value="Single Award/Direct">
+                                Single Award/Direct
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="awardType" value="Multi Award">
+                                Multi Award
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contractDuration">Contract Duration in Years *</label>
+                        <select id="contractDuration" class="form-control">
+                            <option value="1YR fixed">1YR fixed</option>
+                            <option value="2YR fixed">2YR fixed</option>
+                            <option value="3YR fixed">3YR fixed</option>
+                            <option value="Others">Others (specify duration)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Trades & Category *</label>
+                        <select id="category" class="form-control">
+                            <option value="Electrical & Instrumentation">Electrical & Instrumentation</option>
+                            <option value="Mechanical">Mechanical</option>
+                            <option value="IT Services and Supply">IT Services and Supply</option>
+                            <option value="Others">Others (specify category)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Pricing Strategy *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="pricingStrategy" value="Rates Only">
+                                Rates Only
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pricingStrategy" value="Contract Sum">
+                                Contract Sum
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Payment Terms *</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="paymentTerms" value="Standard Within 45 Days after Invoice">
+                                Standard Within 45 Days after Invoice
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="paymentTerms" value="Others">
+                                Others (specify payment terms)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Complete Document for Submission</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="Signed Technical Evaluation Form">
+                            Signed Technical Evaluation Form
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="Fully Approved/Released PR Copy">
+                            Fully Approved/Released PR Copy
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="Tender Auction Form">
+                            Tender Auction Form; if above QR200,000
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" value="Estimate/Cost Analysis">
+                            Estimate/Cost Analysis Arriving to Booked Amount
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part B: Evaluation Criteria -->
+        <div class="tab-content" id="tab-1">
+            <div class="form-section">
+                <h2>Part B - Evaluation Criteria</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="department">1. Department *</label>
+                        <select id="department" class="form-control" onchange="loadSowTypes()">
+                            <option value="">Select Department</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sowTypeB">2. SOW Type *</label>
+                        <select id="sowTypeB" class="form-control" onchange="loadIncludedSections()">
+                            <option value="">Select SOW Type</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="includedSections">3. Included Sections *</label>
+                        <select id="includedSections" class="form-control" onchange="loadCriticalCriteria()">
+                            <option value="">Select Included Sections</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="criticalCriteria">4. Select Critical Criteria *</label>
+                        <select id="criticalCriteria" class="form-control" onchange="loadCriticalWeights()">
+                            <option value="">Select Critical Criteria</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="criticalWeight">5. Select Critical Weight *</label>
+                        <select id="criticalWeight" class="form-control" onchange="loadEvaluationCriteria()">
+                            <option value="">Select Weight</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Evaluation Criteria Display -->
+                <div id="criteriaDisplay" class="criteria-section" style="display: none;">
+                    <h3>📋 Evaluation Criteria</h3>
+                    <p><em>Edit category text as needed. The weights are automatically calculated.</em></p>
+                    <div id="criteriaContent"></div>
+                </div>
+
+                <!-- Mandatory Requirements -->
+                <div class="criteria-section">
+                    <h3>📋 Mandatory Requirements</h3>
+                    <p><em>Select and edit mandatory requirements for the chosen SOW type</em></p>
+                    <div id="mandatoryRequirements">
+                        <p>Select SOW type in Part B to load mandatory requirements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part C: AI Generation -->
+        <div class="tab-content" id="tab-2">
+            <div class="form-section">
+                <h2>Part C - AI Content Generation</h2>
+                
+                <div class="form-group">
+                    <label for="sowTitle">Initial Title *</label>
+                    <input type="text" id="sowTitle" class="form-control" placeholder="Enter SOW title">
+                </div>
+
+                <div class="form-group">
+                    <label for="briefDescription">Brief Description *</label>
+                    <textarea id="briefDescription" class="form-control" rows="3" placeholder="Describe the scope of work..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="userInstructions">Additional Instructions for AI Generator</label>
+                    <textarea id="userInstructions" class="form-control" rows="2" placeholder="Any specific instructions for the AI..."></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="generateAIDraft()" style="width: 100%; margin: 20px 0;">
+                    <span id="generateSpinner" class="loading-spinner" style="display: none;"></span>
+                    <span id="generateText">Generate Draft</span>
+                </button>
+
+                <!-- AI Generated Content -->
+                <div id="aiContent" class="ai-section" style="display: none;">
+                    <h3>AI Generated Draft</h3>
+                    
+                    <div class="section-navigation">
+                        <div>
+                            <strong id="sectionTitle">Loading...</strong>
+                            <div style="font-size: 0.9rem; color: #666; margin-top: 5px;" id="sectionStatus">Section 1 of 1</div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn" onclick="navigateSection(-1)" id="prevSection">Previous</button>
+                            <button class="btn" onclick="navigateSection(1)" id="nextSection">Next</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <textarea id="sectionEditor" class="section-editor" placeholder="AI-generated content will appear here..."></textarea>
+                    </div>
+
+                    <div id="aiQuestions" class="ai-feedback" style="display: none;">
+                        <strong>AI Feedback</strong>
+                        <div id="questionsContent"></div>
+                    </div>
+                </div>
+
+                <!-- File Uploads -->
+                <div class="criteria-section">
+                    <h3>Attach Files</h3>
+                    
+                    <div class="form-group">
+                        <label>Upload BoQ as CSV file</label>
+                        <input type="file" id="boqFile" class="form-control" accept=".csv" onchange="uploadBoq()">
+                        <small id="boqStatus"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Upload Annex Images</label>
+                        <input type="file" id="imageFiles" class="form-control" accept="image/*" multiple onchange="uploadImages()">
+                        <small id="imageStatus"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part D: Generate Final Document -->
+        <div class="tab-content" id="tab-3">
+            <div class="form-section">
+                <h2>Generate Final Document</h2>
+                
+                <div class="criteria-section">
+                    <h3>Summary</h3>
+                    <div id="summaryContent" class="summary-grid">
+                        <div class="summary-item">
+                            <strong>Status:</strong> Please complete previous sections
+                        </div>
+                    </div>
+                </div>
+
+                <div class="criteria-section">
+                    <h3>Validation</h3>
+                    <div id="validationContent">
+                        <div class="validation-item">
+                            <span class="status-icon">⏳</span>
+                            Part A - Basic Information (Incomplete)
+                        </div>
+                        <div class="validation-item">
+                            <span class="status-icon">⏳</span>
+                            Part B - Evaluation Criteria (Optional)
+                        </div>
+                        <div class="validation-item">
+                            <span class="status-icon">⏳</span>
+                            Part C - AI Content (Not Generated)
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; padding: 30px; background: white; border-radius: 8px; border: 2px solid #1976d2; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="generateDocument()" style="padding: 16px 32px; font-size: 16px; font-weight: 600;" id="generateDocBtn" disabled>
+                        <span id="docSpinner" class="loading-spinner" style="display: none;"></span>
+                        <span id="docText">Generate Final SOW Document</span>
+                    </button>
+                    
+                    <p style="margin-top: 15px; color: #666; font-style: italic;">
+                        Complete all required sections to generate the final document.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Navigation -->
+        <div class="footer-navigation">
+            <button class="btn" onclick="navigateTab(-1)" id="prevBtn">← Previous</button>
+            
+            <div class="tab-indicators">
+                <span class="indicator active"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+                <span class="indicator"></span>
+            </div>
+            
+            <button class="btn" onclick="navigateTab(1)" id="nextBtn">Next →</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
