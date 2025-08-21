@@ -3,7 +3,7 @@
 // Configuration
 const API_BASE_URL = window.location.hostname === 'localhost' 
     ? 'http://localhost:3000/api' 
-    : 'https://your-railway-app.railway.app/api'; // Replace with your Railway URL
+    : 'https://sow-generator-backend-1p9t.onrender.com'; // Replace with your Railway URL
 
 // Global state
 let currentTab = 0;
